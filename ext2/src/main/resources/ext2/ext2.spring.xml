@@ -4,7 +4,7 @@
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Definition for Ext2Module bean -->
-    <bean id="ext1Module" class="ru.tandem.Ext2Module">
+    <bean id="ext1Module" class="ru.tandem.Ext2ModuleTest">
         <property name="description" value="This is the Ext2 module"/>
     </bean>
 

@@ -38,3 +38,91 @@
             i. описание модуля
             ii. список файлов в каталоге ресурсов модуля
     Приложение должно корректно работать, когда один из двух расширяющих модулей отключен
+
+
+
+думаю надо поработать над этими файлами: <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"> <bean id="baseModule" class="ru.tandem.BaseModule"> <property name="description" value="This is the Base module"/> </bean> </beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Definition for Ext1Module bean -->
+    <bean id="ext1Module" class="ru.tandem.Ext1Module">
+    </bean>
+
+</beans>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Definition for Ext2Module bean -->
+    <bean id="ext1Module" class="ru.tandem.Ext2ModuleTest">
+        <property name="description" value="This is the Ext2 module"/>
+    </bean>
+
+</beans>
+
+вот контекст задачи:
+    5. Для каждого модуля должен быть реализован вывод на экран (обязательно с использованием Spring beans):
+        1. списка строк с описанием модуля
+        2. списка имен файлов в каталоге ресурсов модуля
+    6. Должен быть реализован (обязательно с использованием механизма кастомизации/переопределения бинов в Spring):
+        1. для модуля base - вывод на экран приветственной строки: "Good day"
+        2. для модуля ext1 - вывод на экран преобразованной в верхний регистр приветственной строки модуля,
+            от которого зависит данный
+        3. для модуля ext2 - вывод на экран удвоенной приветственной строки модуля, от которого зависит данный
+    7. В каталоге ресурсов каждого модуля обязательно должен быть файл <module name>.spring.xml, в котором
+    должны быть объявлены необходимые бины
+
+вот модули:
+
+package ru.tandem;
+
+public class BaseModule {
+    private String description;
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void printWelcomeMessage() {
+        System.out.println("Good day");
+    }
+
+
+}
+package ru.tandem;
+
+
+public class Ext1Module extends BaseModule {
+    @Override
+    public void printWelcomeMessage() {
+        // Используйте геттер для получения значения свойства 'description'
+        String currentDescription = getDescription();
+        if (currentDescription != null) {
+            // Используйте сеттер для установки нового значения свойства 'description'
+            setDescription(currentDescription.toUpperCase());
+        }
+    }
+}
+package ru.tandem;
+
+
+public class Ext2Module extends BaseModule {
+
+    @Override
+    public void printWelcomeMessage() {
+        setDescription(getDescription().toUpperCase() + getDescription().toUpperCase());
+        System.out.println();
+    }
+}
+
+
