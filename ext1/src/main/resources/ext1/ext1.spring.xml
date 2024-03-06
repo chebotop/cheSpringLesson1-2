@@ -1,0 +1,11 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Definition for Ext1Module bean -->
+    <bean id="ext1Module" class="ru.tandem.Ext1Module">
+        <property name="description" value="This is the Ext1 module"/>
+    </bean>
+
+</beans>

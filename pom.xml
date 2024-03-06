@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>ru.tandem</groupId>
+	<artifactId>multi-module-project</artifactId> <!-- Измените на имя вашего проекта -->
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging> <!-- Указываем, что это родительский POM -->
+
+	<modules>
+		<module>base</module>
+		<module>ext1</module>
+		<module>ext2</module>
+		<module>app</module>
+	</modules>
+
+
+
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Здесь можно указать зависимости, общие для всех модулей -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>3.2.3</version>
+			</dependency>
+			<!-- Другие общие зависимости -->
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- Другие плагины, если необходимо -->
+		</plugins>
+	</build>
+</project>
