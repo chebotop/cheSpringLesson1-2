@@ -3,44 +3,38 @@ package ru.tandem;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.context.ApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// Используем SpringExtension для интеграции Spring TestContext Framework с JUnit Jupiter
-@ExtendWith(SpringExtension.class)
-// Указываем конфигурационные файлы для загрузки контекста
-@ContextConfiguration(locations = {"classpath:base.spring.xml", "classpath:ext1.spring.xml", "classpath:ext2.spring.xml"})
-public class LauncherTest {
+@ExtendWith(SpringExtension.class) // Интеграция Spring с JUnit 5
+@ContextConfiguration(locations = {"classpath:base/base.spring.xml",
+                                   "classpath:ext1/ext1.spring.xml",
+                                   "classpath:ext2/ext2.spring.xml"})
+class LauncherTest {
 
-    // Автоматически внедряем ApplicationContext, предоставляемый Spring TestContext Framework
     @Autowired
-    private ApplicationContext context;
+    private ApplicationContext context; // Внедрение контекста Spring
 
     @Test
-    public void contextLoads() {
-        // Проверяем, что контекст не null
+    void contextLoads() {
         assertNotNull(context, "The application context should be loaded");
     }
 
     @Test
-    public void baseModuleBeanAvailable() {
-        // Проверяем, что бин baseModule доступен в контексте
+    void baseModuleBeanAvailable() {
         assertTrue(context.containsBean("baseModule"), "Bean 'baseModule' should be defined in the context");
     }
 
     @Test
-    public void baseModuleBeanFunctionality() {
-        // Получаем бин baseModule и проверяем его функциональность
+    void baseModuleBeanFunctionality() {
         BaseModule baseModule = context.getBean("baseModule", BaseModule.class);
         assertNotNull(baseModule, "The 'baseModule' bean should not be null");
-        assertNotNull(baseModule.getDescription(), "The 'description' property of 'baseModule' should not be null");
-
-        // Проверяем, что метод printWelcomeMessage() работает корректно
-        // В реальном тесте здесь может быть проверка вывода в консоль или другая логика
         baseModule.printWelcomeMessage();
+        String description = baseModule.getDescription();
+        assertNotNull(description, "The 'description' property of 'baseModule' should not be null");
     }
 }

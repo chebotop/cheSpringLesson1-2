@@ -47,6 +47,8 @@ public class Launcher {
             ApplicationContext context = new ClassPathXmlApplicationContext(
                     configLocations.toArray(new String[0])
             );
+
+            // ЛОГГЕР ДЛЯ ПРОВЕРКИ ВЫВОДА
             if (context.containsBean("baseModule")) {
                 logger.log(Level.INFO, "Bean 'baseModule' found in the context.");
             } else {
@@ -63,7 +65,11 @@ public class Launcher {
                 logger.log(Level.SEVERE, "Bean 'ext2Module' not found in the context.");
             }
             BaseModule baseModule = context.getBean("baseModule", BaseModule.class);
+            Ext1Module ext1Module = context.getBean("ext1Module", Ext1Module.class);
+            Ext2Module ext2Module = context.getBean("ext2Module", Ext2Module.class);
             baseModule.printWelcomeMessage();
+            ext1Module.printWelcomeMessage();
+            ext2Module.printWelcomeMessage();
             String description = baseModule.getDescription();
             logger.log(Level.INFO, "Description: {0}", description);
             // ApplicationContext создан и бины инициализированы
