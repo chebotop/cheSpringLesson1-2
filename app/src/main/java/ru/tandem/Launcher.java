@@ -13,8 +13,10 @@ import java.util.logging.Logger;
 public class Launcher {
     private static final Logger logger = Logger.getLogger(Launcher.class.getName());
 
-    public static void main(String[] args) {
-        // Проверяем, что аргумент с путем к файлу app.properties был предоставлен
+
+        public static void main(String[] args) {
+
+            // Проверяем, что аргумент с путем к файлу app.properties был предоставлен
         if (args.length != 1) {
             logger.log(Level.SEVERE, "Usage: Launcher <path-to-app.properties>");
             return;
