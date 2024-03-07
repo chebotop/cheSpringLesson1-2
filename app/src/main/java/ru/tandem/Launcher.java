@@ -70,7 +70,7 @@ public class Launcher {
             baseModule.printWelcomeMessage();
             ext1Module.printWelcomeMessage();
             ext2Module.printWelcomeMessage();
-            String description = baseModule.getDescription();
+            String description = baseModule.getGreet();
             logger.log(Level.INFO, "Description: {0}", description);
             // ApplicationContext создан и бины инициализированы
             // Дополнительные действия с бинами здесь не требуются согласно вашим указаниям

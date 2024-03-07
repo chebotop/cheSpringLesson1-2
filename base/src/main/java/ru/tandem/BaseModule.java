@@ -1,19 +1,17 @@
 package ru.tandem;
 
 public class BaseModule {
-    private String description;
+    private String greet;
 
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setGreet(String greet) {
+        this.greet = greet;
     }
-    public String getDescription() {
-        return description;
+    public String getGreet() {
+        return greet;
     }
-
 
     public void printWelcomeMessage() {
-        System.out.println("Good day");
+        System.out.println(greet);
     }
-
 }

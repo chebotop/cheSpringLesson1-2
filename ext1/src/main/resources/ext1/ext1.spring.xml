@@ -3,7 +3,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
     <import resource="classpath:base/base.spring.xml"/>
-    <!-- Definition for Ext1Module bean -->
     <bean id="ext1Module" class="ru.tandem.Ext1Module" parent="baseModule">
     </bean>
 

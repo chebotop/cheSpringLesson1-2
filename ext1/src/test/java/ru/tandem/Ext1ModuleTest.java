@@ -19,7 +19,7 @@ class Ext1ModuleTest {
     public void setUp() {
         System.setOut(new PrintStream(outContent));
         ext1Module = new Ext1Module();
-        ext1Module.setDescription("Good day");
+        ext1Module.setGreet("Good day");
     }
 
     @AfterEach
@@ -31,7 +31,7 @@ class Ext1ModuleTest {
     @Test
     void testPrintWelcomeMessage() {
 //        Ext1Module ext1Module = new Ext1Module();
-        ext1Module.setDescription(ext1Module.getDescription().toUpperCase());
+        ext1Module.setGreet(ext1Module.getGreet().toUpperCase());
         ext1Module.printWelcomeMessage();
 
         assertEquals("GOOD DAY" + System.lineSeparator(), outContent.toString());

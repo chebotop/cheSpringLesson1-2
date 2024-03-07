@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BaseModuleTest {
     private BaseModule baseModule;
-    private String description;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -28,15 +27,17 @@ class BaseModuleTest {
     }
 
     @Test
-    void testSetAndGetDescription() {
-        baseModule.setDescription("Good day");
-        assertEquals("Good day", baseModule.getDescription());
+    void testSetAndGetGreet() {
+        baseModule.setGreet("Good day");
+        assertEquals("Good day", baseModule.getGreet());
     }
 
     @Test
     void testPrintWelcomeMessage() {
+        baseModule.setGreet("Good day");
         baseModule.printWelcomeMessage();
         assertEquals("Good day" + System.lineSeparator(), outContent.toString());
+        assertEquals("Good day", baseModule.getGreet());
     }
 
 

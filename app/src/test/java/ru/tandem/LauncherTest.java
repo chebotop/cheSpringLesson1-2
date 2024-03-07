@@ -34,7 +34,24 @@ class LauncherTest {
         BaseModule baseModule = context.getBean("baseModule", BaseModule.class);
         assertNotNull(baseModule, "The 'baseModule' bean should not be null");
         baseModule.printWelcomeMessage();
-        String description = baseModule.getDescription();
-        assertNotNull(description, "The 'description' property of 'baseModule' should not be null");
+        String greet = baseModule.getGreet();
+        assertNotNull(greet, "The 'greet' property of 'baseModule' should not be null");
+    }
+    @Test
+    void ext1ModuleBeanFunctionality() {
+        Ext1Module ext1Module = context.getBean("ext1Module", Ext1Module.class);
+        assertNotNull(ext1Module, "The 'ext1Module' bean should not be null");
+        ext1Module.printWelcomeMessage();
+        String greet = ext1Module.getGreet();
+        assertNotNull(greet, "The property of 'ext1Module' should not be null");
+    }
+
+    @Test
+    void ext2ModuleBeanFunctionality() {
+        Ext2Module ext2Module = context.getBean("ext2Module", Ext2Module.class);
+        assertNotNull(ext2Module, "The 'ext2Module' bean should not be null");
+        ext2Module.printWelcomeMessage();
+        String greet = ext2Module.getGreet();
+        assertNotNull(greet, "The property of 'ext2Module' should not be null");
     }
 }

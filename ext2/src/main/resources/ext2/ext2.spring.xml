@@ -3,10 +3,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
     <import resource="classpath:ext1/ext1.spring.xml"/>
-<!--    <import resource="base.spring.xml"/>-->
-    <!-- Definition for Ext2Module bean -->
     <bean id="ext2Module" class="ru.tandem.Ext2Module" parent="ext1Module">
-        <property name="description" value="This is the Ext2 module"/>
     </bean>
 
 </beans>
