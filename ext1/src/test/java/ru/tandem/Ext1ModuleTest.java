@@ -27,6 +27,7 @@ class Ext1ModuleTest {
         System.setOut(originalOut);
     }
 
+
     @Test
     void testPrintWelcomeMessage() {
 //        Ext1Module ext1Module = new Ext1Module();

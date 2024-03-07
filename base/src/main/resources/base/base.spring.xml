@@ -3,6 +3,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
        <bean id="baseModule" class="ru.tandem.BaseModule">
-        <property name="description" value="This is the Base module"/>
+              <property name="description" value="Base module here"/>
        </bean>
 </beans>

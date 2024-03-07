@@ -1,8 +1,11 @@
 package ru.tandem;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,28 +21,56 @@ public class Launcher {
         }
 
         String propertiesPath = args[0];
-        System.out.println("Loading properties from: " + propertiesPath);
 
         try (FileInputStream input = new FileInputStream(propertiesPath)) {
             Properties properties = new Properties();
             properties.load(input);
 
             String modulesProperty = properties.getProperty("modules");
+
             if (modulesProperty == null || modulesProperty.trim().isEmpty()) {
                 logger.log(Level.SEVERE, "No modules defined in app.properties");
                 return;
             }
 
-            // Разделяем список модулей и загружаем каждый файл конфигурации
-            String[] moduleFiles = modulesProperty.split(",");
-            // Создаем ApplicationContext, используя XML файлы конфигурации модулей
-            try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(moduleFiles)) {
-                // ApplicationContext создан и бины инициализированы
-                // Дополнительные действия с бинами здесь не требуются согласно вашим указаниям
+            // Разделяем список модулей и формируем список путей к файлам конфигурации
+            String[] moduleNames = modulesProperty.split(",");
+            List<String> configLocations = new ArrayList<>();
+            for (String moduleName : moduleNames) {
+                moduleName = moduleName.trim(); // Удаляем лишние пробелы
+                if (!moduleName.isEmpty()) {
+                    configLocations.add(moduleName + "/" + moduleName + ".spring.xml");
+                }
             }
 
+            // Создаем ApplicationContext, используя XML файлы конфигурации модулей
+            ApplicationContext context = new ClassPathXmlApplicationContext(
+                    configLocations.toArray(new String[0])
+            );
+            if (context.containsBean("baseModule")) {
+                logger.log(Level.INFO, "Bean 'baseModule' found in the context.");
+            } else {
+                logger.log(Level.SEVERE, "Bean 'baseModule' not found in the context.");
+            }
+            if (context.containsBean("ext1Module")) {
+                logger.log(Level.INFO, "Bean 'ext1Module' found in the context.");
+            } else {
+                logger.log(Level.SEVERE, "Bean 'ext1Module' not found in the context.");
+            }
+            if (context.containsBean("ext2Module")) {
+                logger.log(Level.INFO, "Bean 'ext2Module' found in the context.");
+            } else {
+                logger.log(Level.SEVERE, "Bean 'ext2Module' not found in the context.");
+            }
+            BaseModule baseModule = context.getBean("baseModule", BaseModule.class);
+            baseModule.printWelcomeMessage();
+            String description = baseModule.getDescription();
+            logger.log(Level.INFO, "Description: {0}", description);
+            // ApplicationContext создан и бины инициализированы
+            // Дополнительные действия с бинами здесь не требуются согласно вашим указаниям
+
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Failed to load app.properties file.", e);
+            logger.log(Level.SEVERE, "An error occurred while loading the application properties.", e);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "An error occurred while initializing the application context.", e);
         }
